@@ -1,6 +1,6 @@
 # CasperServer
 
-Simple utility server for mocking requests in [CasperJS](http://casperjs.org/).
+Simple utility server for mocking requests and responses in [CasperJS](http://casperjs.org/).
 
 Warning: it's *experimental* and *work in progress*.
 
