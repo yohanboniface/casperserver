@@ -90,11 +90,11 @@ Server.prototype._serve = function serve(request, response) {
         if (request.url.search(path) !== -1) {
             matched = true;
             options = this.watchedPaths[path];
-            options._request = request;
             this.log("Build response from watched path " + request.url);
             break;
         }
     }
+    options._request = request;
     this._buildResponse(response, options);
     if (!options.permanent) {
         // Automatically unwatch path, not to pollute tests context
