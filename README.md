@@ -41,4 +41,4 @@ casper.then(function () {
 
 ```
 
-More examples on the [server.js tests file](./casperserver/tests/servers.js)
+More examples on the [server.js tests file](https://github.com/yohanboniface/casperserver/blob/master/tests/casperserver.js)
