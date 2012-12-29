@@ -147,7 +147,7 @@ Server.prototype._buildResponse = function _buildResponse(response, options) {
             content = fs.read(filePath);
         }
         else {
-            this.log("File not found: " + filePath);
+            this.log("File not found: " + filePath, 'error');
         }
     }
     if (options.statusCode) {
@@ -166,7 +166,7 @@ Server.prototype._buildResponse = function _buildResponse(response, options) {
  */
 Server.prototype.log = function log(msg, level) {
     if (typeof level == "undefined") {
-        level = "DEBUG";
+        level = "debug";
     }
     this.casper.log("[casperserver] " + msg, level);
 };
