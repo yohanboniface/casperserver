@@ -12,7 +12,7 @@ require('casperserver.js').create(casper, {port: 8007});
 casper.server.start();
 
 // Loading default file index.html
-casper.start('http://localhost:1337', function (){
+casper.start('http://localhost:8007', function (){
     this.test.assertTitle('Title from index.html', 'index.html is loaded and title is correct');
 });
 
