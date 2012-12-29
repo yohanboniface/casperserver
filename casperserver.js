@@ -86,18 +86,19 @@ Server.prototype._serve = function serve(request, response) {
     // Handle response
     var options = {};
     for (var path in this.watchedPaths) {
+        this.log(path)
         if (request.url.search(path) !== -1) {
             options = this.watchedPaths[path];
             this.log("Build response from watched path " + request.url);
+            if (!options.permanent) {
+                // Automatically unwatch path, not to pollute tests context
+                this.unwatchPath(path);
+            }
             break;
         }
     }
     options._request = request;
     this._buildResponse(response, options);
-    if (!options.permanent) {
-        // Automatically unwatch path, not to pollute tests context
-        this.unwatchPath(path);
-    }
 };
 
 
