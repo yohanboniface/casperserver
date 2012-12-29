@@ -59,6 +59,7 @@ Server.prototype.start = function start() {
     this.webserver = webserver.create();
     var self = this;
     this.service = this.webserver.listen(this.options.port, function (request, response) {self._serve(request, response);});
+    this.log("server started");
 };
 
 /**
