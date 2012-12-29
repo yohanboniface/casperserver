@@ -84,11 +84,9 @@ Server.prototype._serve = function serve(request, response) {
     }
 
     // Handle response
-    var matched = false,
-        options = {};
+    var options = {};
     for (var path in this.watchedPaths) {
         if (request.url.search(path) !== -1) {
-            matched = true;
             options = this.watchedPaths[path];
             this.log("Build response from watched path " + request.url);
             break;
