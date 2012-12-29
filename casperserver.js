@@ -44,7 +44,7 @@ var Server = function Server(casper, options) {
         fsPath:                './'   // where to look for response content files
     }, options);
     this.watchedPaths = {
-        "^/$": {filePath: 'index.html', permanent: true}
+        "^/(\\?.*)?$": {filePath: 'index.html', permanent: true}
     };
     this.watchedRequests = {};
 
@@ -86,7 +86,6 @@ Server.prototype._serve = function serve(request, response) {
     // Handle response
     var options = {};
     for (var path in this.watchedPaths) {
-        this.log(path)
         if (request.url.search(path) !== -1) {
             options = this.watchedPaths[path];
             this.log("Build response from watched path " + request.url);
