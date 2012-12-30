@@ -19,7 +19,13 @@ casper.start('http://localhost:8007', function (){
 casper.then(function () {
     // This will indicate the content of the response to serve to this path
     this.server.watchPath("/a-path-or-a-regex/", {content: "the content of the response"});
-    // do some tests needing to access to the watched path
+    // can be also:
+    this.server.watchPath("/a-path-or-a-regex/", {content: function(request) {
+        /* do something according to the request values*/
+        return content
+        }
+    });
+    // then do some tests of you application needing to access to the given path
 });
 
 
@@ -42,3 +48,69 @@ casper.then(function () {
 ```
 
 More examples on the [server.js tests file](https://github.com/yohanboniface/casperserver/blob/master/tests/casperserver.js)
+
+## Usage
+
+You need to attach the server to the casper instance
+
+```
+require('casperserver.js').create(casper, {port: 8007});
+```
+
+You can optionaly watch path without having started the server
+
+You must start the server
+
+```
+casper.server.start();
+```
+
+Now every request sent on port 8007 (for example) will be addressed by
+our testserver.
+The default behaviour is to look for files in the `fsPath` dir corresponding to
+the requested URL (after having replaced the `/` by `_`). For example, the content for the
+path `/some/path/22/` will be looked into the file `some_path_22` in the `fsPath` directory.
+
+Then you can watchPath, for serving some path specifically, and watchRequest, to be able to
+auscultate a request sent by your application (for exemple to check the post parameters values).
+
+
+## API
+
+### create(casper, options)
+
+Options:
+
+* port: (int, default: 8007) the port the server will listen to
+* defaultStatusCode: (int, default: 200) the default status code of the response
+* fsPath: (string, default: "./") the path where to look for responses content
+
+### watchPath(path, options)
+
+Tell the server how to serve this specific path.
+
+Note: **each option can be a string OR a function getting the request as parameter**
+
+path: a string or a regex-like string to catch requests from their path
+
+options:
+
+* content: (string or function) content of the response to serve
+* filePath: (string or function) path to a file where to get the content to server (can be relative to `fsPath`
+  or absolute)
+* statusCode: (string or function) status code of the response to serve
+* permanent: (boolean, default: false) if true, does not automatically unwatch served path
+
+### unwatchPath(path)
+
+Tell the server to forget some watched path.
+Note that by default, if a watched path is not set to `permanent=true`, the path will be automatically
+unwatched when it has matched once.
+
+### watchRequest(path)
+
+path: (string) the path to watch
+
+### unwatchRequest(path)
+
+Tell the server to forget some watched path.
