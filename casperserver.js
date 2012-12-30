@@ -41,7 +41,7 @@ var Server = function Server(casper, options) {
     this.options = utils.mergeObjects({
         port:                  8008,  // port the server will listen to
         defaultStatusCode:     200,   // can be overrided through options
-        fsPath:                './'   // where to look for response content files
+        responsesDir:          './'   // where to look for response content files
     }, options);
     this.watchedPaths = {
         "^/(\\?.*)?$": {filePath: 'index.html', permanent: true}
@@ -138,7 +138,7 @@ Server.prototype._buildResponse = function _buildResponse(response, options) {
             filePath = filePath.replace(/\//g, '_'); // replace / by _
         }
         if (!/^(\.|\/)/.test(filePath)) {
-            filePath = this.options.fsPath + filePath;
+            filePath = this.options.responsesDir + filePath;
         }
         if (fs.exists(filePath)) {
             this.log("Getting content from " + filePath);

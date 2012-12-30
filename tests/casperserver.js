@@ -2,7 +2,7 @@ var casper = require('casper').create({
     verbose: true,
     logLevel: "debug"
 });
-require('../casperserver.js').create(casper, {port: 8007, fsPath: './content/'});
+require('../casperserver.js').create(casper, {port: 8007, responsesDir: './responses/'});
 
 /*
  * Utils

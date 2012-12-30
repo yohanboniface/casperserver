@@ -67,9 +67,9 @@ casper.server.start();
 
 Now every request sent on port 8007 (for example) will be addressed by
 our testserver.
-The default behaviour is to look for files in the `fsPath` dir corresponding to
+The default behaviour is to look for files in the `responsesDir` corresponding to
 the requested URL (after having replaced the `/` by `_`). For example, the content for the
-path `/some/path/22/` will be looked into the file `some_path_22` in the `fsPath` directory.
+path `/some/path/22/` will be looked into the file `some_path_22` in the `responsesDir` directory.
 
 Then you can watchPath, for serving some path specifically, and watchRequest, to be able to
 auscultate a request sent by your application (for exemple to check the post parameters values).
@@ -83,7 +83,7 @@ Options:
 
 * port: (int, default: 8007) the port the server will listen to
 * defaultStatusCode: (int, default: 200) the default status code of the response
-* fsPath: (string, default: "./") the path where to look for responses content
+* responsesDir: (string, default: "./") the path where to look for responses content
 
 ### watchPath(path, options)
 
@@ -96,7 +96,7 @@ path: a string or a regex-like string to catch requests from their path
 options:
 
 * content: (string or function) content of the response to serve
-* filePath: (string or function) path to a file where to get the content to server (can be relative to `fsPath`
+* filePath: (string or function) path to a file where to get the content to server (can be relative to `responsesDir`
   or absolute)
 * statusCode: (string or function) status code of the response to serve
 * permanent: (boolean, default: false) if true, does not automatically unwatch served path
