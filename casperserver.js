@@ -241,6 +241,10 @@ Server.prototype.unwatchRequest = function(path) {
  * @return Object  request  a request instance
  */
 Server.prototype.getWatchedRequest = function (path) {
+    if (!path) {
+        this.log("Can't retrieve watchedRequest for null path");
+        return;
+    }
     var request = this.watchedRequests[path];
     delete this.watchedRequests[path];
     return request;
